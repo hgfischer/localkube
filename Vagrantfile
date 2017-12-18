@@ -3,7 +3,8 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "debian/jessie64"
+  config.vm.box = 'debian/jessie64'
+  #config.vm.box = 'ubuntu/xenial64'
 
   config.vm.provider :libvirt do |domain|
     domain.driver = 'kvm'
@@ -14,7 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :c01 do |node|
     node.vm.hostname = 'c01'
     node.vm.network :private_network,
-      :ip => '169.2.2.2/24',
+      :ip => '169.2.1.1/24',
       :auto_config => false,
       :libvirt__forward_mode => 'veryisolated',
       :libvirt__dhcp_enabled => false,
@@ -24,7 +25,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :w01 do |node|
     node.vm.hostname = 'w01'
     node.vm.network :private_network,
-      :ip => '169.2.2.2/24',
+      :ip => '169.2.2.1/24',
       :auto_config => false,
       :libvirt__forward_mode => 'veryisolated',
       :libvirt__dhcp_enabled => false,
