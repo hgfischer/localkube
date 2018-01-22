@@ -1,3 +1,10 @@
+VERSION   := 1.9.1
+WORKDIR   := ./workdir
+CFSSL     := $(WORKDIR)/cfssl
+CFSSLJSON := $(WORKDIR)/cfssljson
+
+
+
 default: check_kvm
 
 
@@ -19,5 +26,18 @@ xenial64:
 	vagrant mutate ubuntu/xenial64 libvirt
 
 
-up:
+up: check_kvm
 	vagrant up --provider=libvirt
+
+
+cfssl:
+	wget -c https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -O $(CFSSL)
+	chmod +x $(CFSSL)
+	wget -c https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 -O $(CFSSLJSON)
+	chmod +x $(CFSSLJSON)
+
+
+kubernetes:
+	wget -c https://storage.googleapis.com/kubernetes-release/release/v$(VERSION)/kubernetes-server-linux-amd64.tar.gz \
+		-O $(WORKDIR)/kubernetes-server-linux-amd64.tar.gz
+	tar xvzf $(WORKDIR)/kubernetes-server-linux-amd64.tar.gz -C $(WORKDIR)
