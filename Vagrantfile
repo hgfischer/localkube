@@ -12,6 +12,8 @@ Vagrant.configure("2") do |config|
     domain.cpus = 4
   end
 
+  config.vm.provision "shell", :run => "once", :path => "bootstrap.sh"
+
   config.vm.define :c01 do |node|
     node.vm.hostname = 'c01'
     node.vm.network :private_network,
